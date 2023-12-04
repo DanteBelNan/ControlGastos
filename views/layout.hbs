@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   </head>
   <body>
+     {{#if id_usuario}}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/home">Inicio</a>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <!-- Puedes agregar más elementos a la izquierda si lo necesitas -->
+
+            {{#eq rol 'admin'}}
+            {{/eq}}
+            <li class="nav item"> 
+              <a class="btn btn-outline-primary my-2 my-sm-0" href="/users/cargarMovimiento">Cargar movimiento</a>
+            </li>
+            <li class="nav item"> 
+              <a class="btn btn-outline-primary my-2 my-sm-0" href="/users/categorias">Categorias</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-primary my-2 my-sm-0" href="/users/profile">Ver perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-danger my-2 my-sm-0" href="/login/logout">Logout</a>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+    {{/if}}
     {{{body}}}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
