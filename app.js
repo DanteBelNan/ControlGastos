@@ -8,6 +8,7 @@ require('dotenv').config();
 
 var loginRouter = require('./routes/login');
 var usersRouter = require('./routes/users');
+var homeRouter = require('./routes/home');
 
 const session = require('express-session');
 var fileUpload = require('express-fileupload');
@@ -57,6 +58,7 @@ checkLogin = async(req,res,next) => {
 
 app.use('/', loginRouter);
 app.use('/users', checkLogin, usersRouter);
+app.use('/home', checkLogin, homeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
