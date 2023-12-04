@@ -15,7 +15,7 @@ async function getCategoriaById(Id){
 
 async function getCategoriasByUserId(userId){
     try {
-        var query = "select c.idCategoria, c.nombre" +
+        var query = "select c.idCategoria, c.nombre " +
         "from categorias as c " +
         "where c.idUsuario = ?"
         var rows = await pool.query(query, userId);
@@ -27,7 +27,6 @@ async function getCategoriasByUserId(userId){
         throw error;
     }
 }
-
 
 async function createCategoria(obj){
     try{
@@ -60,4 +59,4 @@ async function deleteCategoria(id){
     }
 }
 
-module.exports = { getCategoriaById,getUserById, getCategoriasByUserId, createCategoria,modificarCategoria, deleteCategoria, }
+module.exports = { getCategoriaById, getCategoriasByUserId, createCategoria,modificarCategoria, deleteCategoria }

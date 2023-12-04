@@ -30,7 +30,6 @@ async function getMovimientosByUserId(userId){
     }
 }
 
-
 async function createMovimiento(obj){
     try{
         var query = "insert into Movimientos set ?";
@@ -62,4 +61,4 @@ async function deleteMovimiento(id){
     }
 }
 
-module.exports = { getMovimientoById,getUserById, getMovimientosByUserId, createMovimiento,modificarMovimiento, deleteMovimiento, }
+module.exports = { getMovimientoById, getMovimientosByUserId, createMovimiento,modificarMovimiento, deleteMovimiento, }

@@ -1,0 +1,30 @@
+  <div class="container">
+    <!-- Aquí va tu DataTable -->
+    <table id="Categorias" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th>idCategoria</th>
+          <th>Nombre</th>
+          <th>Modificar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each categorias}}
+          <tr>
+            <td>{{idCategoria}}</td>
+            <td>{{Nombre}}</td>
+            <td><a href="/modificar/{{idCategoria}}">Modificar</a></td>
+            <td><a href="/eliminar/{{idCategoria}}">Eliminar</a></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Configuración y carga de DataTable
+    $(document).ready(function() {
+      $('#Categorias').DataTable();
+    });
+  </script>
