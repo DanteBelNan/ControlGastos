@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-12-2023 a las 03:45:13
+-- Tiempo de generación: 06-12-2023 a las 03:17:41
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -38,6 +38,26 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `usuarios`
+--
+
+
+--
+-- Disparadores `usuarios`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_CreateUser` AFTER INSERT ON `usuarios` FOR EACH ROW BEGIN
+    DECLARE idUsuario INT;
+    SELECT NEW.idUsuario INTO idUsuario;
+
+    INSERT INTO categorias (nombre, idUsuario) VALUES ('Efectivo', idUsuario);
+    INSERT INTO categorias (nombre, idUsuario) VALUES ('Debito', idUsuario);
+    INSERT INTO categorias (nombre, idUsuario) VALUES ('Credito', idUsuario);
+END
+$$
+DELIMITER ;
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -56,7 +76,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
