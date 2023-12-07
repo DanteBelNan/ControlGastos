@@ -1,0 +1,31 @@
+  <style>
+    .custom-border {
+      border: 1px solid #ccc;
+      padding: 20px;
+      text-align: center; /* Alinea el contenido al centro */
+    }
+
+    .mb-3-custom {
+      margin-bottom: 15px; /* Espacio entre elementos */
+    }
+
+    .btn-center {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+
+<div class="container mt-5">
+  <div class="custom-border">
+    <form action="/users/categorias/modificar/id || /users/categorias/crear">
+      <h1 class="mb-3 mb-3-custom">Crear/Modificar</h1>
+      <div class="form-group mb-3 mb-3-custom">
+        <label for="categoria">Nombre de categoría:</label>
+        <input type="text" class="form-control" id="categoria" placeholder="Nombre de categoría">
+      </div>
+      <div class="btn-center">
+        <button type="submit" class="btn btn-primary">Crear/Modificar</button>
+      </div>
+    </form>
+  </div>
+</div>
