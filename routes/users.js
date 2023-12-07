@@ -31,6 +31,8 @@ router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
     await esMiCategoria(req.params.idCategoria, req.session.id_usuario)
     res.render('users/mod_add_categorias', {
         layout: 'layout',
+        modificar: true,
+        crear: false,
     });
   }catch(error){
     res.redirect('/home')
