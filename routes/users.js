@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var categoriaService = require('../service/categoriaService');
 
-router.get('/categorias/:idUser',async function(req, res, next) {
+router.get('/categorias/ver/:idUser',async function(req, res, next) {
   try{
       var id = req.params.idUser;
       var categorias = await categoriaService.getCategoriasByUserId(parseInt(id));
@@ -54,7 +54,7 @@ router.post('/categorias/modificar/:idCategoria',async function(req, res, next) 
 });
 
 router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
-  var id = req.params.idUser;
+  var id = req.params.idUsuario;
   try{
     res.render('users/mod_add_categorias', {
         layout: 'layout',
@@ -66,11 +66,14 @@ router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
   }
 });
 router.post('/categorias/crear/:idUsuario',async function(req, res, next) {
-  var id = req.params.idUser;
+  var id = req.params.idUsuario;
+  var categoria = {
+    nombre: req.body.categoria,
+    idUsuario: id
+  }
   try{
-    res.render('users/mod_add_categorias', {
-        layout: 'layout',
-    });
+    categoria = await categoriaService.createCategoria(categoria)
+    res.redirect('/users/categorias/ver/'+id)
   }catch(error){
     res.redirect('/home')
   }
