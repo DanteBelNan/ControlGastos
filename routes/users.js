@@ -15,6 +15,7 @@ router.get('/categorias/:idUser',async function(req, res, next) {
   }
 });
 
+//Evaluar si crear ruta nueva ya que voy a tener que repetir mucho esta validación
 async function esMiCategoria(idCategoria, idUsuario){
   try{
     categoria = await categoriaService.getCategoriaById(idCategoria).then(categoria => {
@@ -26,6 +27,7 @@ async function esMiCategoria(idCategoria, idUsuario){
     throw error
   }
 }
+
 router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
     await esMiCategoria(req.params.idCategoria, req.session.id_usuario)
@@ -38,10 +40,34 @@ router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
     res.redirect('/home')
   }
 });
-//Evaluar si crear ruta nueva ya que voy a tener que repetir mucho esta validación
+
 router.post('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
     await esMiCategoria(req.params.idCategoria, res.session.id_usuario)
+    //Darle funcionalidad luego de crear los formularios :D
+    res.render('users/mod_add_categorias', {
+        layout: 'layout',
+    });
+  }catch(error){
+    res.redirect('/home')
+  }
+});
+
+router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
+  var id = req.params.idUser;
+  try{
+    res.render('users/mod_add_categorias', {
+        layout: 'layout',
+        modificar: false,
+        crear: true,
+    });
+  }catch(error){
+    res.redirect('/home')
+  }
+});
+router.post('/categorias/crear/:idUsuario',async function(req, res, next) {
+  var id = req.params.idUser;
+  try{
     res.render('users/mod_add_categorias', {
         layout: 'layout',
     });
