@@ -44,17 +44,22 @@ router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
 router.post('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
     await esMiCategoria(req.params.idCategoria, res.session.id_usuario)
-    //Darle funcionalidad luego de crear los formularios :D
-    res.render('users/mod_add_categorias', {
-        layout: 'layout',
-    });
+    var idCategoria = req.params.idCategoria
+    var oldCategoria =  await categoriaService.getCategoriaById(idCategoria)
+    if (req.body.nombre != "" || req.body.nombre != null){
+      oldCategoria.nombre = req.body.categoria;
+    }
+    var categoria = categoriaService.modificarCategoria(oldCategoria,idCategoria).then(categoria => {
+      res.render('users/mod_add_categorias', {
+          layout: 'layout',
+      });
+    })
   }catch(error){
     res.redirect('/home')
   }
 });
 
 router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
-  var id = req.params.idUsuario;
   try{
     res.render('users/mod_add_categorias', {
         layout: 'layout',
