@@ -21,6 +21,9 @@ async function esMiCategoria(idCategoria, idUsuario){
     categoria = await categoriaService.getCategoriaById(idCategoria).then(categoria => {
       if(categoria.idUsuario != idUsuario){
         throw new Error("Esta categoria no es del usuario logueado ")
+      }else{
+        valorCategoria = categoria.nombre
+        return categoria.nombre;
       }
     })
   }catch(error){
@@ -30,29 +33,35 @@ async function esMiCategoria(idCategoria, idUsuario){
 
 router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
-    await esMiCategoria(req.params.idCategoria, req.session.id_usuario)
-    res.render('users/mod_add_categorias', {
-        layout: 'layout',
-        modificar: true,
-        crear: false,
-    });
+    valorCategoria = 0
+    categoria = await esMiCategoria(req.params.idCategoria, req.session.id_usuario, valorCategoria).then(categoria => {
+      res.render('users/mod_add_categorias', {
+          layout: 'layout',
+          modificar: true,
+          crear: false,
+          idCategoria: req.params.idCategoria,
+          valorCategoria: valorCategoria 
+      });
+    })
   }catch(error){
+    console.log(error)
     res.redirect('/home')
   }
 });
 
 router.post('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
-    await esMiCategoria(req.params.idCategoria, res.session.id_usuario)
+    await esMiCategoria(req.params.idCategoria, res.locals.id_usuario)
     var idCategoria = req.params.idCategoria
     var oldCategoria =  await categoriaService.getCategoriaById(idCategoria)
     if (req.body.nombre != "" || req.body.nombre != null){
       oldCategoria.nombre = req.body.categoria;
+    }else{
+      res.redirect(req.headers.referer);
     }
+    console.log(oldCategoria)
     var categoria = categoriaService.modificarCategoria(oldCategoria,idCategoria).then(categoria => {
-      res.render('users/mod_add_categorias', {
-          layout: 'layout',
-      });
+      res.redirect('/users/categorias/ver/'+res.locals.id_usuario)
     })
   }catch(error){
     res.redirect('/home')
