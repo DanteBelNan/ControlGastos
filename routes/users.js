@@ -16,7 +16,7 @@ router.get('/categorias/ver/:idUser',async function(req, res, next) {
 });
 
 //Evaluar si crear ruta nueva ya que voy a tener que repetir mucho esta validación
-async function esMiCategoria(idCategoria, idUsuario){
+async function esMiCategoria(idCategoria, idUsuario, valorCategoria){
   try{
     categoria = await categoriaService.getCategoriaById(idCategoria).then(categoria => {
       if(categoria.idUsuario != idUsuario){
@@ -59,7 +59,6 @@ router.post('/categorias/modificar/:idCategoria',async function(req, res, next) 
     }else{
       res.redirect(req.headers.referer);
     }
-    console.log(oldCategoria)
     var categoria = categoriaService.modificarCategoria(oldCategoria,idCategoria).then(categoria => {
       res.redirect('/users/categorias/ver/'+res.locals.id_usuario)
     })
@@ -92,5 +91,17 @@ router.post('/categorias/crear/:idUsuario',async function(req, res, next) {
     res.redirect('/home')
   }
 });
+
+router.get('/categorias/eliminar/:idCategoria', async function(req, res, next) {
+  try{
+    await esMiCategoria(req.params.idCategoria, res.locals.id_usuario)
+    var idCategoria = req.params.idCategoria
+    categoriaService.deleteCategoria(idCategoria).then(idCategoria => {
+      res.redirect('/users/categorias/ver/'+res.locals.id_usuario)
+    })
+  }catch(error){
+    res.redirect('/home')
+  }
+})
 
 module.exports = router;
