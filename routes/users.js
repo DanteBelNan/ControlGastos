@@ -16,7 +16,7 @@ router.get('/categorias/ver/:idUser',async function(req, res, next) {
 });
 
 //Evaluar si crear ruta nueva ya que voy a tener que repetir mucho esta validación
-async function esMiCategoria(idCategoria, idUsuario, valorCategoria){
+async function esMiCategoria(idCategoria, idUsuario){
   try{
     categoria = await categoriaService.getCategoriaById(idCategoria).then(categoria => {
       if(categoria.idUsuario != idUsuario){
