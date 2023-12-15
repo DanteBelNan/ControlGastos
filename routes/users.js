@@ -65,14 +65,14 @@ router.post('/categorias/modificar/:idCategoria',async function(req, res, next) 
       res.redirect(req.headers.referer);
     }
     var categoria = categoriaService.modificarCategoria(oldCategoria,idCategoria).then(categoria => {
-      res.redirect('/users/categorias/ver/'+res.locals.id_usuario)
+      res.redirect('/users/categorias/ver/')
     })
   }catch(error){
     res.redirect('/home')
   }
 });
 
-router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
+router.get('/categorias/crear/',async function(req, res, next) {
   try{
     res.render('users/mod_add_categorias', {
         layout: 'layout',
@@ -83,8 +83,8 @@ router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
     res.redirect('/home')
   }
 });
-router.post('/categorias/crear/:idUsuario',async function(req, res, next) {
-  var id = req.params.idUsuario;
+router.post('/categorias/crear/',async function(req, res, next) {
+  var id = res.locals.id_usuario
   console.log(req.body)
   var categoria = {
     nombre: req.body.categoria,
@@ -93,7 +93,7 @@ router.post('/categorias/crear/:idUsuario',async function(req, res, next) {
   }
   try{
     categoria = await categoriaService.createCategoria(categoria)
-    res.redirect('/users/categorias/ver/'+id)
+    res.redirect('/users/categorias/ver/')
   }catch(error){
     res.redirect('/home')
   }
@@ -104,7 +104,7 @@ router.get('/categorias/eliminar/:idCategoria', async function(req, res, next) {
     await esMiCategoria(req.params.idCategoria, res.locals.id_usuario)
     var idCategoria = req.params.idCategoria
     categoriaService.deleteCategoria(idCategoria).then(idCategoria => {
-      res.redirect('/users/categorias/ver/'+res.locals.id_usuario)
+      res.redirect('/users/categorias/ver/')
     })
   }catch(error){
     res.redirect('/home')
@@ -117,7 +117,9 @@ router.get('/movimientos/crear/', async function(req,res, next){
     var categorias = await categoriaService.getCategoriasByUserId(id)
     res.render('users/mod_add_movimientos',{
       layout: 'layout',
-      categorias
+      categorias,
+      modificar: false,
+      crear: true,
     });
   }catch(error){
     res.redirect('/home')
