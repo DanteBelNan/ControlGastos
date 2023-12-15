@@ -25,8 +25,10 @@
     Categoría
   </h1>
   <div class="form-group mb-3 mb-3-custom">
-    <label for="categoria">Nombre de categoría:</label>
+    <label for="categoria">Nombre:</label>
     <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Nombre de categoría" {{#if modificar}}value="{{valorCategoria}}" {{/if}}>
+    <label for="categoria">Color:</label>
+    <input type="color" class="form-control" style="height: 50px;" id="color" name="color" value="{{#if modificar}}{{color}}{{else}}#d2c6c6{{/if}}">
   </div>
   <div class="btn-center">
     <button type="submit" class="btn btn-primary">

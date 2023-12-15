@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>Nombre</th>
+        <th style="width: 10%;">Color</th>
         <th style="width: 10%;">Modificar</th>
         <th style="width: 10%;">Eliminar</th>
       </tr>
@@ -15,6 +16,7 @@
       {{#each categorias}}
         <tr>
           <td>{{nombre}}</td>
+          <td style="background-color: {{color}};"></td>
           <td style="text-align: center;"><a href="/users/categorias/modificar/{{idCategoria}}" class="btn btn-warning">🔨</a></td>
           <td style="text-align: center;"><a href="/users/categorias/eliminar/{{idCategoria}}" class="btn btn-danger">🗑️</a></td>
         </tr>

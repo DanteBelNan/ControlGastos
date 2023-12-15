@@ -5,11 +5,11 @@ var categoriaService = require('../service/categoriaService');
 router.get('/categorias/ver/:idUser',async function(req, res, next) {
   try{
       var id = req.params.idUser;
-      var categorias = await categoriaService.getCategoriasByUserId(parseInt(id));
+      var categorias = await categoriaService.getCategoriasByUserId(parseInt(id))
       res.render('users/ver_categorias',{
         layout: 'layout',
         categorias
-    });
+      });
   }catch(error){
     console.log(error);
   }
@@ -23,7 +23,8 @@ async function esMiCategoria(idCategoria, idUsuario){
         throw new Error("Esta categoria no es del usuario logueado ")
       }else{
         valorCategoria = categoria.nombre
-        return categoria.nombre;
+        color = categoria.color
+        return categoria;
       }
     })
   }catch(error){
@@ -34,13 +35,16 @@ async function esMiCategoria(idCategoria, idUsuario){
 router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
     valorCategoria = 0
+    color = ""
     categoria = await esMiCategoria(req.params.idCategoria, req.session.id_usuario, valorCategoria).then(categoria => {
+      console.log(categoria)
       res.render('users/mod_add_categorias', {
           layout: 'layout',
           modificar: true,
           crear: false,
           idCategoria: req.params.idCategoria,
-          valorCategoria: valorCategoria 
+          valorCategoria: valorCategoria,
+          color: color,
       });
     })
   }catch(error){
@@ -56,6 +60,7 @@ router.post('/categorias/modificar/:idCategoria',async function(req, res, next) 
     var oldCategoria =  await categoriaService.getCategoriaById(idCategoria)
     if (req.body.nombre != "" || req.body.nombre != null){
       oldCategoria.nombre = req.body.categoria;
+      oldCategoria.color = req.body.color;
     }else{
       res.redirect(req.headers.referer);
     }
@@ -80,8 +85,10 @@ router.get('/categorias/crear/:idUsuario',async function(req, res, next) {
 });
 router.post('/categorias/crear/:idUsuario',async function(req, res, next) {
   var id = req.params.idUsuario;
+  console.log(req.body)
   var categoria = {
     nombre: req.body.categoria,
+    color: req.body.color,
     idUsuario: id
   }
   try{
