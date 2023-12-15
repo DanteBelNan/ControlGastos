@@ -19,12 +19,12 @@
             {{#eq rol 'admin'}}
             {{/eq}}
             <li class="nav item">
-              <form action="/users/categorias/ver/{{id_usuario}}" method="get">
+              <form action="/users/categorias/ver/" method="get">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Categorias</button>
               </form>
             </li>
             <li class="nav item">
-              <form action="/users/cargarMovimiento/{{id_usuario}}" method="get">
+              <form action="/users/movimientos/crear/" method="get">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Cargar movimiento</button>
               </form>
             </li>

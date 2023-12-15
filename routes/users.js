@@ -111,4 +111,17 @@ router.get('/categorias/eliminar/:idCategoria', async function(req, res, next) {
   }
 })
 
+router.get('/movimientos/crear/', async function(req,res, next){
+  try{
+    var id = res.locals.id_usuario
+    var categorias = await categoriaService.getCategoriasByUserId(id)
+    res.render('users/mod_add_movimientos',{
+      layout: 'layout',
+      categorias
+    });
+  }catch(error){
+    res.redirect('/home')
+  }
+})
+
 module.exports = router;
