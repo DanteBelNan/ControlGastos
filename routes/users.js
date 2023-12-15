@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var categoriaService = require('../service/categoriaService');
 
-router.get('/categorias/ver/:idUser',async function(req, res, next) {
+router.get('/categorias/ver/',async function(req, res, next) {
   try{
-      var id = req.params.idUser;
-      var categorias = await categoriaService.getCategoriasByUserId(parseInt(id))
+      var id = res.locals.id_usuario
+      var categorias = await categoriaService.getCategoriasByUserId(id)
       res.render('users/ver_categorias',{
         layout: 'layout',
         categorias
