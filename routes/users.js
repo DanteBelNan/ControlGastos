@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var categoriaService = require('../service/categoriaService');
+var movimientosService = require('../service/movimientosService')
 
 router.get('/categorias/ver/',async function(req, res, next) {
   try{
@@ -128,15 +129,12 @@ router.get('/movimientos/crear/', async function(req,res, next){
 
 router.post('/movimientos/crear/', async function(req,res, next){
   try{
-    console.log(req.body)
-    var id = res.locals.id_usuario
-    var categorias = await categoriaService.getCategoriasByUserId(id)
-    res.render('users/mod_add_movimientos',{
-      layout: 'layout',
-      categorias,
-      modificar: true,
-      crear: false,
-    });
+    const fechaSeleccionada = req.body.fecha ? new Date(req.body.fecha) : new Date();
+    req.body.fecha = fechaSeleccionada
+    req.body.idUsuario = res.locals.id_usuario
+
+    var created = await movimientosService.createMovimiento(req.body)
+    res.redirect('/home')
   }catch(error){
     res.redirect('/home')
   }

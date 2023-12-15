@@ -27,18 +27,25 @@
   </h1>
   <div class="form-group mb-3 mb-3-custom">
     <label for="movimiento">Detalle:</label>
-    <input type="text" class="form-control" id="detalle" name="detalle" placeholder="Detalle del movimiento" {{#if modificar}}value="{{nombre}}" {{/if}}>
+    <input type="text" class="form-control" id="detalle" name="detalle" placeholder="Detalle del movimiento" {{#if modificar}}value="{{nombre}}" {{/if}} required>
     <label for="categoria">Categoria</label>
-    <select name="categoria" class="form-select form-select-lg mb-3">
+    <select name="idCategoria" class="form-select form-select-lg mb-3">
         {{#each categorias}}
-            <option value="{{nombre}}" style="background-color: {{color}}">{{nombre}}</option>
+            <option value="{{idCategoria}}" style="background-color: {{color}}">{{nombre}}</option>
         {{/each}}
     </select>
-    <select name="esDebito" class="form-select form-select-lg mb-3">
-            <option selected value=true>Ingreso</option>
+    <label for="esIngreso">Egreso/Ingreso</label>
+    <select name="esIngreso" class="form-select form-select-lg mb-3">
             <option selected value=false>Egreso</option>
+            <option value=true>Ingreso</option>
     </select>
+    <label for="monto" class="form-label">Monto:</label>
+    <input type="number" step="0.01" class="form-control" id="monto" name="monto" placeholder="Ingrese el monto" required>
 
+    <div class="mb-3">
+    <label for="fecha" class="form-label">Fecha:</label>
+    <input type="date" class="form-control" id="fecha" name="fecha">
+    </div>
   </div>
   <div class="btn-center">
     <button type="submit" class="btn btn-primary">

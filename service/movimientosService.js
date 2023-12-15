@@ -3,7 +3,7 @@ var pool = require('./db');
 
 async function getMovimientoById(Id){
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle" +
+        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
         "from Movimientos as m " +
         "inner join Categorias as C on C.idCategoria = M.idCategoria " +
         "where m.idCategoria = ?"
@@ -16,7 +16,7 @@ async function getMovimientoById(Id){
 
 async function getMovimientosByUserId(userId){
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle" +
+        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
         "from Movimientos as m " +
         "inner join Categorias as C on C.idCategoria = M.idCategoria " +
         "inner join Usuarios as U on  C.idUsuario = ?"
