@@ -19,7 +19,8 @@ async function getMovimientosByUserId(userId){
         var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
         "from Movimientos as m " +
         "inner join Categorias as C on C.idCategoria = M.idCategoria " +
-        "inner join Usuarios as U on  C.idUsuario = ?"
+        "inner join Usuarios as U on  C.idUsuario = u.idUsuario " +
+        "WHERE u.idUsuario = ?"
         var rows = await pool.query(query, userId);
         if(rows == null){
             throw new Error("No se encontraron Movimientos")
@@ -61,21 +62,24 @@ async function deleteMovimiento(id){
     }
 }
 
-async function getMovimientosByUserIdAndMes(userId,Fecha){
+async function getMovimientosByUserIdAndMes(userId, Month, Year) {
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
-        "from Movimientos as m " +
-        "inner join Categorias as C on C.idCategoria = M.idCategoria " +
-        "inner join Usuarios as U on  C.idUsuario = ? " + 
-        "where MONTH(CURDATE()) = MONTH(?) AND YEAR(CURDATE()) = YEAR(?)"
-        var rows = await pool.query(query, userId,Fecha, Fecha);
-        if(rows == null){
-            throw new Error("No se encontraron Movimientos")
-        }
-        return rows;
-    }catch(error){
-        throw error;
+      var query = "SELECT m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha " +
+        "FROM Movimientos as m " +
+        "INNER JOIN Categorias as c ON c.idCategoria = m.idCategoria " +
+        "INNER JOIN Usuarios as u ON c.idUsuario = u.idUsuario " +
+        "WHERE u.idUsuario = ? AND MONTH(m.fecha) = ? AND YEAR(m.fecha) = ?";
+  
+      var rows = await pool.query(query, [userId, Month, Year]);
+  
+      if (rows == null) {
+        throw new Error("No se encontraron Movimientos");
+      }
+  
+      return rows;
+    } catch (error) {
+      throw error;
     }
-}
+  }
 
 module.exports = { getMovimientoById, getMovimientosByUserId, createMovimiento,modificarMovimiento, deleteMovimiento, getMovimientosByUserIdAndMes}
