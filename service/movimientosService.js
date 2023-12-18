@@ -61,4 +61,21 @@ async function deleteMovimiento(id){
     }
 }
 
-module.exports = { getMovimientoById, getMovimientosByUserId, createMovimiento,modificarMovimiento, deleteMovimiento, }
+async function getMovimientosByUserIdAndMes(userId,Fecha){
+    try {
+        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
+        "from Movimientos as m " +
+        "inner join Categorias as C on C.idCategoria = M.idCategoria " +
+        "inner join Usuarios as U on  C.idUsuario = ? " + 
+        "where MONTH(CURDATE()) = MONTH(?) AND YEAR(CURDATE()) = YEAR(?)"
+        var rows = await pool.query(query, userId,Fecha, Fecha);
+        if(rows == null){
+            throw new Error("No se encontraron Movimientos")
+        }
+        return rows;
+    }catch(error){
+        throw error;
+    }
+}
+
+module.exports = { getMovimientoById, getMovimientosByUserId, createMovimiento,modificarMovimiento, deleteMovimiento, getMovimientosByUserIdAndMes}
