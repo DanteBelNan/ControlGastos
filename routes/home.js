@@ -11,9 +11,12 @@ router.get('/',async function(req, res, next) {
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
     var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,currentMonth, currentYear)
-    console.log(movimientos)
+    console.log(movimientos.length)
     res.render('home/home', {
         layout: 'layout',
+        movimientos: movimientos,
+        currentMonth: currentMonth,
+        currentYear: currentYear,
     });
 });
 
