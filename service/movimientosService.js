@@ -16,7 +16,7 @@ async function getMovimientoById(Id){
 
 async function getMovimientosByUserId(userId){
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
+        var query = "select m.idMovimiento, c.nombre as Categoria,c.idCategoria as idcategoria, m.esIngreso, m.monto, m.detalle, m.fecha" +
         "from Movimientos as m " +
         "inner join Categorias as C on C.idCategoria = M.idCategoria " +
         "inner join Usuarios as U on  C.idUsuario = u.idUsuario " +
@@ -64,7 +64,7 @@ async function deleteMovimiento(id){
 
 async function getMovimientosByUserIdAndMes(userId, Month, Year) {
     try {
-      var query = "SELECT m.idMovimiento, c.nombre as Categoria, m.esIngreso, m.monto, m.detalle, m.fecha " +
+      var query = "SELECT m.idMovimiento, c.nombre as Categoria, c.idCategoria as idcategoria, m.esIngreso, m.monto, m.detalle, m.fecha " +
         "FROM Movimientos as m " +
         "INNER JOIN Categorias as c ON c.idCategoria = m.idCategoria " +
         "INNER JOIN Usuarios as u ON c.idUsuario = u.idUsuario " +

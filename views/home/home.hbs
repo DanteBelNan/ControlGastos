@@ -26,5 +26,32 @@
     </nav>
   </header>
     <h1>Cantidad de movimientos: {{movimientos.length}}</h1>
+
+<div class="container">
+  <div class="row">
+    {{#each categorias as | categoria |}}
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>{{categoria.nombre}}</h2>
+            {{categoria.idCategoria}}
+            {{#each movimientos as | movimiento |}}
+              {{movimiento.idcategoria}}
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h5 class="card-title">{{movimiento.nombre}}</h5>
+                    <p class="card-text">ID Movimiento: {{movimiento.idMovimiento}}</p>
+                  </div>
+                </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+
+
     
 </div>

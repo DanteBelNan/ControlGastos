@@ -11,8 +11,8 @@ router.get('/',async function(req, res, next) {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
-    var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,currentMonth, currentYear)
     var categorias = await categoriasService.getCategoriasByUserId(res.locals.id_usuario)
+    var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,currentMonth, currentYear)
     res.render('home/home', {
         layout: 'layout',
         movimientos: movimientos,
