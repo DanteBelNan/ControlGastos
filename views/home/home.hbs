@@ -22,12 +22,11 @@
             <h2>{{categoria.nombre}}</h2>
 
             <ul class="list-group">
-              {{#each movimientos as | movimiento |}}
+              {{#each categoria.movimientos as | movimiento |}}
               <li class="list-group-item">
-                <h5 class="card-title">{{movimiento.nombre}}</h5>
+                <h5 class="card-title">{{movimiento.detalle}}</h5>
                 <p class="card-text">ID Movimiento: {{movimiento.idMovimiento}}</p>
               </li>
-                  
               {{/each}}
             </ul>
 
