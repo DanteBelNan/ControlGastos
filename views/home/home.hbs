@@ -1,57 +1,44 @@
-<div class="container">
-    {{#if error}}
-    <div class="alert alert-danger" role="alert">
-        {{ message}}
-    </div>
-    {{/if}}
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Atrás</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">{{currentMonth}} / {{currentYear}}</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Adelante</a>
-          </li>
-        </ul>
-      </div>
+<div class="container mt-2">
+  {{#if error}}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+  {{/if}}
+  
+  <header class="text-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+      <span class="arrow-icon">&lt;</span>
+      {{currentMonth}} / {{currentYear}}
+      <span class="arrow-icon">&gt;</span>
     </nav>
   </header>
-    <h1>Cantidad de movimientos: {{movimientos.length}}</h1>
 
-<div class="container">
-  <div class="row">
+  <h1 class="text-center">Cantidad de movimientos: {{movimientos.length}}</h1>
+
+  <div class="d-flex overflow-auto">
     {{#each categorias as | categoria |}}
       <div class="col-md-4">
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body" style="background-color: {{categoria.color}};">
             <h2>{{categoria.nombre}}</h2>
-            {{categoria.idCategoria}}
+
             {{#each movimientos as | movimiento |}}
-              {{movimiento.idcategoria}}
+              {{#eq movimiento.idCategoria categoria.idCategoria }}
                 <div class="card mb-3">
                   <div class="card-body">
                     <h5 class="card-title">{{movimiento.nombre}}</h5>
                     <p class="card-text">ID Movimiento: {{movimiento.idMovimiento}}</p>
                   </div>
                 </div>
+              {{/eq}}
             {{/each}}
+
+          </div>
+          <div class="card-footer">
+            <h2>Total: </h2>
           </div>
         </div>
       </div>
     {{/each}}
   </div>
-</div>
-
-
-
-    
 </div>
