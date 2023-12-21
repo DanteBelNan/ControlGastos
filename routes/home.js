@@ -13,9 +13,17 @@ router.get('/',async function(req, res, next) {
     const currentYear = currentDate.getFullYear();
     var categorias = await categoriasService.getCategoriasByUserId(res.locals.id_usuario)
     var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,currentMonth, currentYear)
+    categorias.forEach(categoria => {
+        categoria.movimientos = []
+        movimientos.forEach(movimiento => {
+            console.log(movimiento)
+            if(movimiento.idCategoria == categoria.idCategoria){
+                categoria.movimientos.push(movimiento);
+            }
+        });
+    });
     res.render('home/home', {
         layout: 'layout',
-        movimientos: movimientos,
         currentMonth: currentMonth,
         currentYear: currentYear,
         categorias: categorias

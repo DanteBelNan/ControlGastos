@@ -14,7 +14,6 @@
   </header>
 
   <h1 class="text-center">Cantidad de movimientos: {{movimientos.length}}</h1>
-
   <div class="d-flex overflow-auto">
     {{#each categorias as | categoria |}}
       <div class="col-md-4">
@@ -22,16 +21,15 @@
           <div class="card-body" style="background-color: {{categoria.color}};">
             <h2>{{categoria.nombre}}</h2>
 
-            {{#each movimientos as | movimiento |}}
-              {{#eq movimiento.idCategoria categoria.idCategoria }}
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h5 class="card-title">{{movimiento.nombre}}</h5>
-                    <p class="card-text">ID Movimiento: {{movimiento.idMovimiento}}</p>
-                  </div>
-                </div>
-              {{/eq}}
-            {{/each}}
+            <ul class="list-group">
+              {{#each movimientos as | movimiento |}}
+              <li class="list-group-item">
+                <h5 class="card-title">{{movimiento.nombre}}</h5>
+                <p class="card-text">ID Movimiento: {{movimiento.idMovimiento}}</p>
+              </li>
+                  
+              {{/each}}
+            </ul>
 
           </div>
           <div class="card-footer">
