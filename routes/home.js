@@ -14,11 +14,13 @@ router.get('/',async function(req, res, next) {
     var categorias = await categoriasService.getCategoriasByUserId(res.locals.id_usuario)
     var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,currentMonth, currentYear)
     categorias.forEach(categoria => {
+        categoria.total = 0
         categoria.movimientos = []
         movimientos.forEach(movimiento => {
             console.log(movimiento)
             if(movimiento.idCategoria == categoria.idCategoria){
                 categoria.movimientos.push(movimiento);
+                categoria.total += movimiento.monto
             }
         });
     });
