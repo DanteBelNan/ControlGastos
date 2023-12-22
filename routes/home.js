@@ -26,12 +26,18 @@ router.get('/:month/:year',async function(req, res, next) {
         year++;
         month = 1;
     }
+    const currentDate = new Date();
     if((month < 1 || month > 12 || !month) || (!year || year < 1900) ){
-        const currentDate = new Date();
         month = currentDate.getMonth() + 1;
         year = currentDate.getFullYear();
         res.redirect('/home/'+month+'/'+year);
     }
+    if(year > currentDate.getFullYear() || (month > currentDate.getMonth()+1 && year == currentDate.getFullYear())){
+        month = currentDate.getMonth() + 1;
+        year = currentDate.getFullYear();
+        res.redirect('/home/'+month+'/'+year);
+    }
+
 
     var categorias = await categoriasService.getCategoriasByUserId(res.locals.id_usuario)
     var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,month, year)
