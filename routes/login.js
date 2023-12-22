@@ -32,7 +32,10 @@ router.post('/login',async function(req,res,next)  {
       req.session.username = data["username"];
       req.session.mail = data["mail"];
       req.session.rol = data["rol"];
-      res.redirect('/home');
+      const currentDate = new Date();
+      const month = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
+      res.redirect('/home/'+month+'/'+year);
     }else{
       res.render('login/login', {
         layout: 'layout',

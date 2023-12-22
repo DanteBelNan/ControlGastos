@@ -8,7 +8,7 @@
   <header class="text-center">
     <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
       <span class="arrow-icon">&lt;</span>
-      {{currentMonth}} / {{currentYear}}
+      {{month}} / {{year}}
       <span class="arrow-icon">&gt;</span>
     </nav>
   </header>
@@ -25,7 +25,7 @@
               {{#each categoria.movimientos as | movimiento |}}
               <li class="list-group-item">
                 <h5 class="card-title">{{movimiento.detalle}}</h5>
-                <p class="card-text">ID Movimiento: {{movimiento.idMovimiento}}</p>
+                <p class="card-text">Monto: {{movimiento.monto}}</p>
               </li>
               {{/each}}
             </ul>

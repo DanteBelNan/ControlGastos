@@ -9,15 +9,28 @@ var categoriasService = require('../service/categoriaService')
 
 router.get('/',async function(req, res, next) {
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1;
-    const currentYear = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    res.redirect('/home/'+month+'/'+year);
+});
+
+
+router.get('/:month/:year',async function(req, res, next) {
+    var month = req.params.month;
+    var year = req.params.year;
+    if((month < 1 || month > 12 || !month) || (!year || year < 1900) ){
+        const currentDate = new Date();
+        month = currentDate.getMonth() + 1;
+        year = currentDate.getFullYear();
+        res.redirect('/home/'+month+'/'+year);
+    }
+
     var categorias = await categoriasService.getCategoriasByUserId(res.locals.id_usuario)
-    var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,currentMonth, currentYear)
+    var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,month, year)
     categorias.forEach(categoria => {
         categoria.total = 0
         categoria.movimientos = []
         movimientos.forEach(movimiento => {
-            console.log(movimiento)
             if(movimiento.idCategoria == categoria.idCategoria){
                 categoria.movimientos.push(movimiento);
                 categoria.total += movimiento.monto
@@ -26,8 +39,8 @@ router.get('/',async function(req, res, next) {
     });
     res.render('home/home', {
         layout: 'layout',
-        currentMonth: currentMonth,
-        currentYear: currentYear,
+        month: month,
+        year: year,
         categorias: categorias
     });
 });
