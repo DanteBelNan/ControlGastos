@@ -18,6 +18,14 @@ router.get('/',async function(req, res, next) {
 router.get('/:month/:year',async function(req, res, next) {
     var month = req.params.month;
     var year = req.params.year;
+    if(month == 0){
+        year--;
+        month = 12;
+    }
+    if (month == 13){
+        year++;
+        month = 1;
+    }
     if((month < 1 || month > 12 || !month) || (!year || year < 1900) ){
         const currentDate = new Date();
         month = currentDate.getMonth() + 1;
@@ -41,7 +49,11 @@ router.get('/:month/:year',async function(req, res, next) {
         layout: 'layout',
         month: month,
         year: year,
-        categorias: categorias
+        categorias: categorias,
+        nextMonth: parseInt(month)+1,
+        previousMonth: parseInt(month)-1,
+        nextYear: parseInt(year)+1,
+        previousYear:parseInt( year)-1,
     });
 });
 
