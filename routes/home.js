@@ -41,6 +41,7 @@ router.get('/:month/:year',async function(req, res, next) {
 
     var categorias = await categoriasService.getCategoriasByUserId(res.locals.id_usuario)
     var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,month, year)
+    var filteredCategorias = [];
     categorias.forEach(categoria => {
         categoria.total = 0
         categoria.movimientos = []
@@ -50,12 +51,15 @@ router.get('/:month/:year',async function(req, res, next) {
                 categoria.total += movimiento.monto
             }
         });
+        if(categoria.total > 0){
+            filteredCategorias.push(categoria);
+        }
     });
     res.render('home/home', {
         layout: 'layout',
         month: month,
         year: year,
-        categorias: categorias,
+        categorias: filteredCategorias,
         nextMonth: parseInt(month)+1,
         previousMonth: parseInt(month)-1,
         nextYear: parseInt(year)+1,
