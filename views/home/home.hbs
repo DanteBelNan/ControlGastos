@@ -15,6 +15,11 @@
 
   <h1 class="text-center">Cantidad de movimientos: {{movimientos.length}}</h1>
   <div class="d-flex overflow-auto">
+    {{#eq categorias.length 0}}
+      <div class="d-flex justify-content-center">
+        <h2>No hay movimientos este mes</h2>
+      </div>
+    {{/eq}}
     {{#each categorias as | categoria |}}
       <div class="col-md-4">
         <div class="card mb-4">
