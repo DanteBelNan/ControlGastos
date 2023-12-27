@@ -25,6 +25,7 @@ async function esMiCategoria(idCategoria, idUsuario){
       }else{
         valorCategoria = categoria.nombre
         color = categoria.color
+        deb_acr = categoria.deb_acr
         return categoria;
       }
     })
@@ -37,17 +38,17 @@ router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
   try{
     valorCategoria = 0
     color = ""
-    categoria = await esMiCategoria(req.params.idCategoria, req.session.id_usuario, valorCategoria).then(categoria => {
-      console.log(categoria)
-      res.render('users/mod_add_categorias', {
-          layout: 'layout',
-          modificar: true,
-          crear: false,
-          idCategoria: req.params.idCategoria,
-          valorCategoria: valorCategoria,
-          color: color,
-      });
-    })
+    deb_acr = 0
+    categoria = await esMiCategoria(req.params.idCategoria, req.session.id_usuario, valorCategoria)
+    res.render('users/mod_add_categorias', {
+        layout: 'layout',
+        modificar: true,
+        crear: false,
+        idCategoria: req.params.idCategoria,
+        valorCategoria: valorCategoria,
+        deb_acr: deb_acr,
+        color: color,
+    });
   }catch(error){
     console.log(error)
     res.redirect('/home')
@@ -62,6 +63,7 @@ router.post('/categorias/modificar/:idCategoria',async function(req, res, next) 
     if (req.body.nombre != "" || req.body.nombre != null){
       oldCategoria.nombre = req.body.categoria;
       oldCategoria.color = req.body.color;
+      oldCategoria.deb_acr = req.body.deb_acr
     }else{
       res.redirect(req.headers.referer);
     }

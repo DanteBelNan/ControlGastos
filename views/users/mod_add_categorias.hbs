@@ -27,6 +27,11 @@
   <div class="form-group mb-3 mb-3-custom">
     <label for="categoria">Nombre:</label>
     <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Nombre de categoría" {{#if modificar}}value="{{valorCategoria}}" {{/if}}>
+    <label for="deb_acr">Egreso/Ingreso</label>
+    <select name="deb_acr" class="form-select form-select-lg mb-3">
+            <option {{#eq deb_acr 0}} selected {{/eq}} value=false>Egreso</option>
+            <option {{#eq deb_acr 1}} selected {{/eq}} value=true>Ingreso</option>
+    </select>
     <label for="categoria">Color:</label>
     <input type="color" class="form-control" style="height: 50px;" id="color" name="color" value="{{#if modificar}}{{color}}{{else}}#d2c6c6{{/if}}">
   </div>

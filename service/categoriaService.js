@@ -3,7 +3,7 @@ var pool = require('./db');
 
 async function getCategoriaById(Id){
     try {
-        var query = "select c.idCategoria, c.nombre, c.color, c.idUsuario " +
+        var query = "select c.idCategoria, c.nombre, c.deb_acr, c.color, c.idUsuario " +
         "from categorias as c " +
         "where c.idCategoria = ?"
         var rows = await pool.query(query, Id);
@@ -15,7 +15,7 @@ async function getCategoriaById(Id){
 
 async function getCategoriasByUserId(userId){
     try {
-        var query = "select c.idCategoria, c.nombre, c.color, c.idUsuario " +
+        var query = "select c.idCategoria, c.nombre, c.deb_acr, c.color, c.idUsuario " +
         "from categorias as c " +
         "where c.idUsuario = ?"
         var rows = await pool.query(query, userId);
