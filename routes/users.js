@@ -63,10 +63,11 @@ router.post('/categorias/modificar/:idCategoria',async function(req, res, next) 
     if (req.body.nombre != "" || req.body.nombre != null){
       oldCategoria.nombre = req.body.categoria;
       oldCategoria.color = req.body.color;
-      oldCategoria.deb_acr = req.body.deb_acr
+      oldCategoria.deb_acr = req.body.deb_acr ? 1 : 0;
     }else{
       res.redirect(req.headers.referer);
     }
+    console.log(oldCategoria)
     var categoria = categoriaService.modificarCategoria(oldCategoria,idCategoria).then(categoria => {
       res.redirect('/users/categorias/ver/')
     })
@@ -88,10 +89,10 @@ router.get('/categorias/crear/',async function(req, res, next) {
 });
 router.post('/categorias/crear/',async function(req, res, next) {
   var id = res.locals.id_usuario
-  console.log(req.body)
   var categoria = {
     nombre: req.body.categoria,
     color: req.body.color,
+    deb_acr: req.body.deb_acr ? 1 : 0,
     idUsuario: id
   }
   try{
