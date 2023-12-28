@@ -12,22 +12,23 @@
       <a href="/home/{{nextMonth}}/{{year}}" class="btn btn-secondary"><span class="arrow-icon">&gt;</span></a>
     </nav>
   </header>
-
-  <h1 class="text-center">Cantidad de movimientos: {{movimientos.length}}</h1>
   <div class="d-flex overflow-auto">
-    {{#eq categorias.length 0}}
-      <div class="d-flex justify-content-center">
-        <h2>No hay movimientos este mes</h2>
-      </div>
+    {{#eq categoriasA.length 0}}
+      {{#eq categoriasB.length 0}}
+        <div class="d-flex justify-content-center">
+          <h2>No hay movimientos este mes</h2>
+        </div>
+      {{/eq}}
     {{/eq}}
-    {{#each categorias as | categoria |}}
+    <h1>Acreditaciones</h1>
+    {{#each categoriasA as | categoriaA |}}
       <div class="col-md-4">
         <div class="card mb-4">
-          <div class="card-body" style="background-color: {{categoria.color}};">
-            <h2>{{categoria.nombre}}</h2>
+          <div class="card-body" style="background-color: {{categoriaA.color}};">
+            <h2>{{categoriaA.nombre}}</h2>
 
             <ul class="list-group">
-              {{#each categoria.movimientos as | movimiento |}}
+              {{#each categoriaA.movimientos as | movimiento |}}
               <li class="list-group-item">
                 <h5 class="card-title">{{movimiento.detalle}}</h5>
                 <p class="card-text">Monto: {{movimiento.monto}}</p>
@@ -37,7 +38,32 @@
 
           </div>
           <div class="card-footer">
-            <h2>Total: {{categoria.total}}</h2>
+            <h2>Total: {{categoriaA.total}}</h2>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+
+    <h1>Debitos</h1>
+    {{#each categoriasD as | categoriaD |}}
+    
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body" style="background-color: {{categoriaD.color}};">
+            <h2>{{categoriaD.nombre}}</h2>
+
+            <ul class="list-group">
+              {{#each categoriaD.movimientos as | movimiento |}}
+              <li class="list-group-item">
+                <h5 class="card-title">{{movimiento.detalle}}</h5>
+                <p class="card-text">Monto: {{movimiento.monto}}</p>
+              </li>
+              {{/each}}
+            </ul>
+
+          </div>
+          <div class="card-footer">
+            <h2>Total: {{categoriaD.total}}</h2>
           </div>
         </div>
       </div>
