@@ -43,6 +43,8 @@ router.get('/:month/:year',async function(req, res, next) {
     var movimientos = await movimientosService.getMovimientosByUserIdAndMes(res.locals.id_usuario,month, year)
     var filteredCategoriasA = [];
     var filteredCategoriasD = [];
+    var totalAcredit = 0;
+    var totalDebit = 0;
     categorias.forEach(categoria => {
         categoria.total = 0
         categoria.movimientos = []
@@ -55,11 +57,14 @@ router.get('/:month/:year',async function(req, res, next) {
         if(categoria.total > 0){
             if(categoria.deb_acr == 0){
                 filteredCategoriasD.push(categoria);
+                totalDebit+= categoria.total;
             }else{
                 filteredCategoriasA.push(categoria)
+                totalAcredit+= categoria.total;
             }
         }
     });
+
     res.render('home/home', {
         layout: 'layout',
         month: month,
@@ -70,6 +75,8 @@ router.get('/:month/:year',async function(req, res, next) {
         previousMonth: parseInt(month)-1,
         nextYear: parseInt(year)+1,
         previousYear:parseInt( year)-1,
+        totalDebit: totalDebit,
+        totalAcredit: totalAcredit,
     });
 });
 
