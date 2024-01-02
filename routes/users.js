@@ -9,6 +9,7 @@ router.get('/categorias/ver/',async function(req, res, next) {
       var categorias = await categoriaService.getCategoriasByUserId(id)
       res.render('users/ver_categorias',{
         layout: 'layout',
+        title: 'Categorias',
         categorias
       });
   }catch(error){
@@ -42,6 +43,7 @@ router.get('/categorias/modificar/:idCategoria',async function(req, res, next) {
     categoria = await esMiCategoria(req.params.idCategoria, req.session.id_usuario, valorCategoria)
     res.render('users/mod_add_categorias', {
         layout: 'layout',
+        title: 'Modificar Categoria',
         modificar: true,
         crear: false,
         idCategoria: req.params.idCategoria,
@@ -80,6 +82,7 @@ router.get('/categorias/crear/',async function(req, res, next) {
   try{
     res.render('users/mod_add_categorias', {
         layout: 'layout',
+        title: 'Crear categoria',
         modificar: false,
         crear: true,
     });
@@ -121,6 +124,7 @@ router.get('/movimientos/crear/', async function(req,res, next){
     var categorias = await categoriaService.getCategoriasByUserId(id)
     res.render('users/mod_add_movimientos',{
       layout: 'layout',
+      title: 'Cargar movimiento',
       categorias,
       modificar: false,
       crear: true,
