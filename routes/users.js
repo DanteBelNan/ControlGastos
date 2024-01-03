@@ -109,11 +109,25 @@ router.post('/categorias/crear/',async function(req, res, next) {
 router.get('/categorias/eliminar/:idCategoria', async function(req, res, next) {
   try{
     await esMiCategoria(req.params.idCategoria, res.locals.id_usuario)
-    var idCategoria = req.params.idCategoria
-    categoriaService.deleteCategoria(idCategoria).then(idCategoria => {
-      res.redirect('/users/categorias/ver/')
-    })
+    movimientos = await movimientosService.getMovimientosByidCategoria(parseInt(req.params.idCategoria));
+    if(movimientos.length != 0){
+      var id = res.locals.id_usuario
+      var categorias = await categoriaService.getCategoriasByUserId(id)
+      res.render('users/ver_categorias',{
+        layout: 'layout',
+        title: 'Categorias',
+        categorias: categorias,
+        error: true,
+        message: "La categoria no se puede eliminar si tiene movimientos asignados"
+      });
+    }else{
+      var idCategoria = req.params.idCategoria
+      categoriaService.deleteCategoria(idCategoria).then(idCategoria => {
+        res.redirect('/users/categorias/ver/')
+      })
+    }
   }catch(error){
+    console.log(error)
     res.redirect('/home')
   }
 })

@@ -3,7 +3,7 @@ var pool = require('./db');
 
 async function getMovimientoById(Id){
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria,   m.monto, m.detalle, m.fecha" +
+        var query = "select m.idMovimiento, c.nombre as Categoria,   m.monto, m.detalle, m.fecha " +
         "from Movimientos as m " +
         "inner join Categorias as C on C.idCategoria = M.idCategoria " +
         "where m.idCategoria = ?"
@@ -16,7 +16,7 @@ async function getMovimientoById(Id){
 
 async function getMovimientosByUserId(userId){
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria,c.idCategoria as idCategoria,   m.monto, m.detalle, m.fecha" +
+        var query = "select m.idMovimiento, c.nombre as Categoria,c.idCategoria as idCategoria,   m.monto, m.detalle, m.fecha " +
         "from Movimientos as m " +
         "inner join Categorias as C on C.idCategoria = M.idCategoria " +
         "inner join Usuarios as U on  C.idUsuario = u.idUsuario " +
@@ -31,13 +31,13 @@ async function getMovimientosByUserId(userId){
     }
 }
 
-async function getMovimientosByCategoriaId(categoriaId){
+async function getMovimientosByidCategoria(idCategoria){
     try {
-        var query = "select m.idMovimiento, c.nombre as Categoria,c.idCategoria as idCategoria,   m.monto, m.detalle, m.fecha" +
+        var query = "select m.idMovimiento, c.nombre as Categoria, c.idCategoria as idCategoria, m.monto, m.detalle, m.fecha " +
         "from Movimientos as m " +
-        "inner join Categorias as C on C.idCategoria = M.idCategoria " +
+        "inner join Categorias as c on c.idCategoria = m.idCategoria " +
         "WHERE c.idCategoria = ?"
-        var rows = await pool.query(query, categoriaId);
+        var rows = await pool.query(query, idCategoria);
         if(rows == null){
             throw new Error("No se encontraron Movimientos")
         }
@@ -98,4 +98,4 @@ async function getMovimientosByUserIdAndMes(userId, Month, Year) {
     }
   }
 
-module.exports = { getMovimientoById, getMovimientosByUserId,getMovimientosByCategoriaId, createMovimiento,modificarMovimiento, deleteMovimiento, getMovimientosByUserIdAndMes}
+module.exports = { getMovimientoById, getMovimientosByUserId,getMovimientosByidCategoria, createMovimiento,modificarMovimiento, deleteMovimiento, getMovimientosByUserIdAndMes}
