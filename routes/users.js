@@ -142,7 +142,7 @@ router.post('/movimientos/crear/', async function(req,res, next){
     req.body.fecha = fechaSeleccionada
     req.body.idUsuario = res.locals.id_usuario
 
-
+ 
     var created = await movimientosService.createMovimiento(req.body)
     res.redirect('/home')
   }catch(error){

@@ -31,6 +31,22 @@ async function getMovimientosByUserId(userId){
     }
 }
 
+async function getMovimientosByCategoriaId(categoriaId){
+    try {
+        var query = "select m.idMovimiento, c.nombre as Categoria,c.idCategoria as idCategoria,   m.monto, m.detalle, m.fecha" +
+        "from Movimientos as m " +
+        "inner join Categorias as C on C.idCategoria = M.idCategoria " +
+        "WHERE c.idCategoria = ?"
+        var rows = await pool.query(query, categoriaId);
+        if(rows == null){
+            throw new Error("No se encontraron Movimientos")
+        }
+        return rows;
+    }catch(error){
+        throw error;
+    }
+}
+
 async function createMovimiento(obj){
     try{
         var query = "insert into Movimientos set ?";
@@ -82,4 +98,4 @@ async function getMovimientosByUserIdAndMes(userId, Month, Year) {
     }
   }
 
-module.exports = { getMovimientoById, getMovimientosByUserId, createMovimiento,modificarMovimiento, deleteMovimiento, getMovimientosByUserIdAndMes}
+module.exports = { getMovimientoById, getMovimientosByUserId,getMovimientosByCategoriaId, createMovimiento,modificarMovimiento, deleteMovimiento, getMovimientosByUserIdAndMes}
