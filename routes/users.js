@@ -130,6 +130,7 @@ router.get('/movimientos/crear/', async function(req,res, next){
       crear: true,
     });
   }catch(error){
+    console.log(error);
     res.redirect('/home')
   }
 })
@@ -137,12 +138,15 @@ router.get('/movimientos/crear/', async function(req,res, next){
 router.post('/movimientos/crear/', async function(req,res, next){
   try{
     const fechaSeleccionada = req.body.fecha ? new Date(req.body.fecha) : new Date();
+    fechaSeleccionada.setHours(fechaSeleccionada.getHours() - 3);
     req.body.fecha = fechaSeleccionada
     req.body.idUsuario = res.locals.id_usuario
+
 
     var created = await movimientosService.createMovimiento(req.body)
     res.redirect('/home')
   }catch(error){
+    console.log(error);
     res.redirect('/home')
   }
 })
