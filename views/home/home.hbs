@@ -20,7 +20,17 @@
         </div>
       {{/eq}}
     {{/eq}}
-    <h1>Acreditaciones</h1>
+    <div class="col-md-4">
+      <div class="card mb-4">
+          <div class="card-body">
+              <h1>Acreditaciones</h1>
+
+          </div>
+          <div class="card-footer">
+              <h1>Total: {{ totalAcredit}}</h1>
+          </div>
+        </div>
+    </div>
     {{#each categoriasA as | categoriaA |}}
       <div class="col-md-4">
         <div class="card mb-4">
@@ -43,9 +53,18 @@
         </div>
       </div>
     {{/each}}
-    <h1>Total: {{ totalAcredit}}</h1>
 
-    <h1>Debitos</h1>
+    <div class="col-md-4">
+      <div class="card mb-4">
+          <div class="card-body">
+              <h1>Debitos</h1>
+
+          </div>
+          <div class="card-footer">
+              <h1>Total: {{ totalDebit}}</h1>
+          </div>
+        </div>
+    </div>
     {{#each categoriasD as | categoriaD |}}
     
       <div class="col-md-4">
@@ -69,6 +88,5 @@
         </div>
       </div>
     {{/each}}
-    <h1>Total: {{ totalDebit}}</h1>
   </div>
 </div>
