@@ -47,6 +47,7 @@ checkLogin = async(req,res,next) => {
     if(req.session.id_usuario){
       res.locals.id_usuario = req.session.id_usuario;
       res.locals.rol = req.session.rol;
+      res.locals.username = req.session.username;
       next();
     }else{
       res.redirect('/login');
