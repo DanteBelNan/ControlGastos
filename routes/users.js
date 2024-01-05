@@ -2,6 +2,21 @@ var express = require('express');
 var router = express.Router();
 var categoriaService = require('../service/categoriaService');
 var movimientosService = require('../service/movimientosService')
+var userService = require('../service/userService')
+
+router.get('/profile/',async function(req, res, next) {
+  try{
+      var id = res.locals.id_usuario
+      var cantMovimientos = userService.getCantMovimientos(id)
+      res.render('users/profile',{
+        layout: 'layout',
+        title: 'Profile: ' + res.locals.username,
+        cantMovimientos: cantMovimientos
+      });
+  }catch(error){
+    console.log(error);
+  }
+});
 
 router.get('/categorias/ver/',async function(req, res, next) {
   try{

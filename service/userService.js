@@ -55,4 +55,16 @@ async function deleteUser(id){
     }
 }
 
-module.exports = { getUserByUserNameAndPassword,getUserById, createUser, changePasswordById, deleteUser, }
+async function getCantMovimientos(id){
+    try{
+        var query = "select count(m.idMovimiento) from movimientos " + 
+        "where idUsuario = ?"
+        var rows = await pool.query(query, Id);
+        return rows[0];
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
+module.exports = { getUserByUserNameAndPassword,getUserById, createUser, changePasswordById, deleteUser, getCantMovimientos }
