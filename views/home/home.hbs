@@ -41,14 +41,14 @@
               {{#each categoriaA.movimientos as | movimiento |}}
               <li class="list-group-item">
                 <h5 class="card-title">{{movimiento.detalle}}</h5>
-                <p class="card-text">Monto: {{movimiento.monto}}</p>
+                <p class="card-text">Monto: ${{movimiento.monto}}</p>
               </li>
               {{/each}}
             </ul>
 
           </div>
           <div class="card-footer">
-            <h2>Total: {{categoriaA.total}}</h2>
+            <h2>Total: ${{categoriaA.total}}</h2>
           </div>
         </div>
       </div>
@@ -76,14 +76,14 @@
               {{#each categoriaD.movimientos as | movimiento |}}
               <li class="list-group-item">
                 <h5 class="card-title">{{movimiento.detalle}}</h5>
-                <p class="card-text">Monto: {{movimiento.monto}}</p>
+                <p class="card-text">Monto: ${{movimiento.monto}}</p>
               </li>
               {{/each}}
             </ul>
 
           </div>
           <div class="card-footer">
-            <h2>Total: {{categoriaD.total}}</h2>
+            <h2>Total: ${{categoriaD.total}}</h2>
           </div>
         </div>
       </div>
