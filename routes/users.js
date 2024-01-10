@@ -7,13 +7,14 @@ var userService = require('../service/userService')
 router.get('/profile/',async function(req, res, next) {
   try{
       var id = res.locals.id_usuario
-      var cantMovimientos = userService.getCantMovimientos(id)
-      res.render('users/profile',{
-        layout: 'layout',
-        title: 'Profile: ' + res.locals.username,
-        cantMovimientos: cantMovimientos,
-        username: res.locals.username
-      });
+      var cantMovimientos = userService.getCantMovimientos(id).then(cantMovimientos => {
+        res.render('users/profile',{
+          layout: 'layout',
+          title: 'Profile: ' + res.locals.username,
+          cantMovimientos: cantMovimientos,
+          username: res.locals.username
+        });
+      })
   }catch(error){
     console.log(error);
   }

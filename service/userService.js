@@ -57,9 +57,9 @@ async function deleteUser(id){
 
 async function getCantMovimientos(id){
     try{
-        var query = "select count(m.idMovimiento) from movimientos " + 
-        "where idUsuario = ?"
-        var rows = await pool.query(query, Id);
+        var query = "select count(m.idMovimiento) from movimientos as m " + 
+        "where m.idUsuario = ?"
+        var rows = await pool.query(query, id);
         return rows[0];
     }catch(error){
         console.log(error);
