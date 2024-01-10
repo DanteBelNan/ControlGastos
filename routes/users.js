@@ -11,7 +11,7 @@ router.get('/profile/',async function(req, res, next) {
         res.render('users/profile',{
           layout: 'layout',
           title: 'Profile: ' + res.locals.username,
-          cantMovimientos: cantMovimientos,
+          cantMovimientos: cantMovimientos.cantMovimientos,
           username: res.locals.username
         });
       })
